@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <form id="myForm">
+            <h2>Theme Switcher</h2>
+            <div>
+                <label for="color">Choose a color:</label>
+                <input type="color" id="colorPicker" name="colorPicker" value="#ffffff" onchange="changeBackgroundColor()"> <br>
+                <button class="color" type="button" onclick="setLightMode()">Light Mode</button>
+                <button class="color" type="button" onclick="setDarkMode()">Dark Mode</button>
+            </div>
+            <h2>Login Form</h2>
+            <div>
+                <label for="username">Username:</label> <br>
+                <input type="text" class="text-input" id="username" placeholder="banh_ng05">
+            </div>
+            <div>
+                <label for="password">Password:</label> <br>
+                <input type="password" class="text-input" id="password" placeholder="Please enter your password">
+                <i id="toggleVisibility" class="fas fa-eye"></i>
+            </div>
+            <div>
+                <label for="rememberMe" id="rememberMe">Remember me:</label>
+                <input type="checkbox" id="rememberMeCheckbox"> <br>
+                <button type="submit" class="submitbtn">Login</button>
+            </div>
+            <h2>User Preferences Storage</h2>
+            <div>
+                <label for="language">Language:</label>
+                <select id="language">
+                    <option value="en">English</option>
+                    <option value="vi">Vietnamese</option>
+                </select>
+                <label for="fontSize">Font Size:</label>
+                <select id="fontSize">
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                </select>
+            </div>
+            <h2>Game Score Tracker</h2>
+            <div>
+                <label for="score">Current Score: <span id="currentScore">0</span></label> <br>
+                <label for="highScore">High Score: <span id="highScore">0</span></label> <br>   
+                <button id="playGameBtn" type="button" onclick="playGame()">Play Game</button> <br>
+                <button id="resetBtn" type="button" onclick="resetallFields()">Reset All Fields And Preferences</button> 
+            </div>
+        </form>
+    </div>
+    <div class="wrapper">
+        <header>
+            <i class="bx bx-cookie"></i>
+            <h2>Cookies Consent</h2>
+          </header>
+      
+          <div class="data">
+            <p>Cookies are tiny bits of information websites store on your device. They act like a memory, helping websites remember things about you, like your login details, what you added to your shopping cart, or even your browsing preferences. This can make your browsing experience smoother and more personalized.</p>
+          </div>
+      
+          <div class="buttons">
+            <button class="button" id="acceptBtn">Accept</button>
+            <button class="button" id="declineBtn">Decline</button>
+          </div>
+    </div>
+</body>
+</html>
