@@ -12,23 +12,52 @@ function setDarkMode() {
 const cookieBox = document.querySelector(".wrapper"),
   buttons = document.querySelectorAll(".button");
 
-  const executeCodes = () => {
-    //if cookie contains coding it will be returned and below of this code will not run
-    if (document.cookie.includes("cookieBy=LaSalle_Coding")) return;
-    cookieBox.classList.add("show");
-  
-    buttons.forEach((button) => {
+const executeCodes = () => {
+  // Check if the cookie is accepted
+  if (checkCookiesAccepted()) {
+      // If the cookie is accepted, hide the cookie consent box and show the form
+      document.querySelector('.wrapper').style.display = 'none';
+      document.getElementById('myForm').style.display = 'block';
+      return;
+  }
+
+  // If the cookie is not accepted, show the cookie consent box
+  cookieBox.classList.add("show");
+
+  buttons.forEach((button) => {
       button.addEventListener("click", () => {
-        cookieBox.classList.remove("show");
-  
-        //if button has acceptBtn id
-        if (button.id == "acceptBtn") {
-          //set cookies for 1 month. 60 = 1 min, 60 = 1 hours, 24 = 1 day, 30 = 30 days
-          document.cookie = "cookieBy=LaSalle_Coding; max-age=" + 60 * 60 * 24 * 30;
-        }
+          cookieBox.classList.remove("show");
+
+          // If the "Accept" button is clicked, set the cookie
+          if (button.id == "acceptBtn") {
+              document.cookie = "cookieBy=LaSalle_Coding; max-age=" + 60 * 60 * 24 * 30;
+          } else if (button.id == "declineBtn") {
+              // If the "Decline" button is clicked, delete the cookie
+              document.cookie = "cookieBy=LaSalle_Coding; max-age=0";
+          }
       });
-    });
-  };
+  });
+};
+
+// Call the executeCodes function when the page loads
+window.addEventListener("load", executeCodes);
+  
+function acceptCookies() {
+  setCookie("cookie", true, 30);
+  load1();
+}
+
+function rejectCookies() {
+  document.querySelector("#cookies").style.display = "none";
+  document.querySelector("#other").style.display = "flex";
+  load();
+}
+function checkCookiesAccepted() {
+    const cookies = document.cookie.split(";").map(cookie => cookie.trim().split("="));
+    const cookieValues = Object.fromEntries(cookies);
+    return cookieValues.cookieBy === "LaSalle_Coding";
+}
+  //executeCodes function will be called on webpage load
   window.addEventListener("load", executeCodes);
 
 buttons.forEach((button) => {
@@ -39,11 +68,12 @@ buttons.forEach((button) => {
       }, 500);
       if (button.id == "acceptBtn") {
           // Set cookies for 1 month. 60 = 1 min, 60 = 1 hours, 24 = 1 day, 30 = 30 days
-          document.cookie = "cookieBy=LaSalle_Coding; max-age=" + 60 * 60 * 24 * 30;
+          document.cookie = "cookieBy = LaSalle_Coding; max-age=" + 60 * 60 * 24 * 30;
       }
   });
 });
 document.addEventListener('DOMContentLoaded', function() {
+  // if user has already accepted the cookie policy, hide the cookie box
   document.getElementById('acceptBtn').addEventListener('click', function() {
       document.querySelector('.wrapper').style.display = 'none';
       document.getElementById('myForm').style.display = 'block';
@@ -104,11 +134,6 @@ if (savedColor) {
   document.getElementById('colorPicker').value = savedColor;
 }
 
-if (storedUsername && storedPassword) {
-  document.getElementById('username').value = storedUsername;
-  document.getElementById('password').value = storedPassword;
-}
-
 // Add event listener to language select
 document.getElementById('language').addEventListener('change', (event) => {
   const language = event.target.value;
@@ -140,6 +165,9 @@ form.addEventListener('submit', function(event) {
     setCookie('color', document.getElementById('colorPicker').value, 30);
     setCookie('username', username, 30);
     setCookie('password', password, 30);
+    // hide cookie box if user has already accepted
+    if (document.cookie.includes("cookieBy=LaSalle_Coding")) {
+      document.getElementById('myForm').style.display = 'none';}
   } else {
     eraseCookie('username');
     eraseCookie('password');
@@ -149,6 +177,7 @@ form.addEventListener('submit', function(event) {
     eraseCookie('currentScore');
     eraseCookie('highScore');
   }
+  
 });
 
 if (storedUsername && storedPassword) {
@@ -209,6 +238,11 @@ function resetallFields() {
   eraseCookie('fontSize');
   eraseCookie('currentScore');
   eraseCookie('highScore');
-  location.reload();
+  eraseCookie('cookieBy'); // Erase the cookie consent cookie
+  document.getElementById('currentScore').textContent = "";
+  document.getElementById('highScore').textContent = "";
+  document.querySelector('.wrapper').style.display = 'block'; // Show the cookie consent box
+  document.getElementById('myForm').style.display = 'none'; // Hide the form
 }
 document.getElementById('resetBtn').addEventListener('click', resetallFields);
+

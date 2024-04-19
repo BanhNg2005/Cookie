@@ -30,7 +30,7 @@
             <div>
                 <label for="rememberMe" id="rememberMe">Remember me:</label>
                 <input type="checkbox" id="rememberMeCheckbox"> <br>
-                <button type="submit" class="submitbtn">Login</button>
+                <button type="submit" class="submitbtn" onclick="checkCookiesAccepted()">Login</button>
             </div>
             <h2>User Preferences Storage</h2>
             <div>
@@ -57,7 +57,7 @@
     </div>
     <div class="wrapper">
         <header>
-            <i class="bx bx-cookie"></i>
+            <i class="bx bx-cookie" id="cookies"></i>
             <h2>Cookies Consent</h2>
           </header>
       
@@ -69,6 +69,7 @@
             <button class="button" id="acceptBtn">Accept</button>
             <button class="button" id="declineBtn">Decline</button>
           </div>
+        </header>
     </div>
 </body>
 </html>
