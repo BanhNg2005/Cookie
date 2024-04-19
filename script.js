@@ -133,24 +133,23 @@ document.getElementById('colorPicker').addEventListener('change', (event) => {
 form.addEventListener('submit', function(event) {
   event.preventDefault();
   var username = document.getElementById('username').value;
-    var password = document.getElementById('password').value;
+  var password = document.getElementById('password').value;
+  var rememberMe = document.getElementById('rememberMeCheckbox').checked;
+  if (rememberMe) {
     setCookie('language', document.getElementById('language').value, 30);
     setCookie('fontSize', document.getElementById('fontSize').value, 30);
     setCookie('color', document.getElementById('colorPicker').value, 30);
-    var rememberMe = document.getElementById('rememberMeCheckbox').checked;
-    if (rememberMe) {
-        setCookie('username', username, 30);
-        setCookie('password', password, 30);
-    } else {
-     
-        eraseCookie('username');
-        eraseCookie('password');
-        eraseCookie('color');
-        eraseCookie('language');
-        eraseCookie('fontSize');
-        eraseCookie('currentScore');
-        eraseCookie('highScore');
-    }
+    setCookie('username', username, 30);
+    setCookie('password', password, 30);
+  } else {
+    eraseCookie('username');
+    eraseCookie('password');
+    eraseCookie('color');
+    eraseCookie('language');
+    eraseCookie('fontSize');
+    eraseCookie('currentScore');
+    eraseCookie('highScore');
+  }
 });
 
 if (storedUsername && storedPassword) {
