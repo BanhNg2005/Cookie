@@ -44,7 +44,7 @@ form h2 {
   color: #9a9090f6;
   margin: 10px 0;
 }
-.text-input {
+#textUser {
   display: flex;
   margin: 10px 0;
   padding: 10px;
