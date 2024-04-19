@@ -133,15 +133,24 @@ document.getElementById('colorPicker').addEventListener('change', (event) => {
 form.addEventListener('submit', function(event) {
   event.preventDefault();
   var username = document.getElementById('username').value;
-  var password = document.getElementById('password').value;
-  setCookie('language', document.getElementById('language').value, 30);
-  setCookie('fontSize', document.getElementById('fontSize').value, 30);
-  setCookie('color', document.getElementById('colorPicker').value, 30);
-  var rememberMe = document.getElementById('rememberMeCheckbox').checked;
-  if (rememberMe) {
-    setCookie('username', username, 30);
-    setCookie('password', password, 30);
-  }
+    var password = document.getElementById('password').value;
+    setCookie('language', document.getElementById('language').value, 30);
+    setCookie('fontSize', document.getElementById('fontSize').value, 30);
+    setCookie('color', document.getElementById('colorPicker').value, 30);
+    var rememberMe = document.getElementById('rememberMeCheckbox').checked;
+    if (rememberMe) {
+        setCookie('username', username, 30);
+        setCookie('password', password, 30);
+    } else {
+     
+        eraseCookie('username');
+        eraseCookie('password');
+        eraseCookie('color');
+        eraseCookie('language');
+        eraseCookie('fontSize');
+        eraseCookie('currentScore');
+        eraseCookie('highScore');
+    }
 });
 
 if (storedUsername && storedPassword) {
@@ -173,6 +182,24 @@ document.getElementById('toggleVisibility').addEventListener('click', function (
   }
 });
 
+document.getElementById('declineBtn').addEventListener('click', function() {
+  cookiesAllowed = false;
+  eraseCookie('username');
+  eraseCookie('password');
+  eraseCookie('color');
+  eraseCookie('language');
+  eraseCookie('fontSize');
+  eraseCookie('currentScore');
+  eraseCookie('highScore');
+
+  document.getElementById('myForm').reset();
+
+  // Reset the background color
+  document.body.style.backgroundColor = '#ffffff';
+  // Reset score
+  document.getElementById('currentScore').textContent = "";
+  document.getElementById('highScore').textContent = "";
+});
 // Reset all fields
 function resetallFields() {
   document.getElementById('myForm').reset();
